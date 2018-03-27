@@ -1,0 +1,3 @@
+grant codeBase "file:/home/duicul/public_html/RMI/" {
+    permission java.security.AllPermission;
+};
