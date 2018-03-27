@@ -1,3 +1,3 @@
-grant codeBase "file:/home/duicul/public_html/RMI/" {
+grant codeBase "file:." {
     permission java.security.AllPermission;
 };
