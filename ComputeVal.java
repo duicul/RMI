@@ -11,8 +11,11 @@ public class ComputeVal {
             Registry registry = LocateRegistry.getRegistry(args[0]);
             Compute comp = (Compute) registry.lookup(name);
             int t = comp.execute(20);
+            Compute aux=comp.getCompute();
             System.out.println(t);
-        } catch (Exception e) {
+            System.out.println(aux.execute(100));
+
+         } catch (Exception e) {
             System.err.println("ComputePi exception:");
             e.printStackTrace();
         }
