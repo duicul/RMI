@@ -31,7 +31,7 @@ public class ProdusReal implements Produsinter{
 
 	@Override
 	public List<Stoc> getStoc(Produs p) throws RemoteException {
-		if(p.getHost()!=this.host)
+		if(!p.getHost().equals(this.host))
 	    	return null;
 		return this.getStoc(p.getID());
 	}
@@ -76,7 +76,7 @@ public class ProdusReal implements Produsinter{
 	}
 
 	public List<Stoc> getStoc(Produs p, Farmacie f) throws RemoteException {
-		if(p.getHost()!=host||f.getHost()!=host)
+		if(!p.getHost().equals(this.host)||!f.getHost().equals(this.host))
 			return null;
 		return this.getStoc(p.getID(), f.getID());
 	}
@@ -288,7 +288,7 @@ public class ProdusReal implements Produsinter{
 
 	@Override
 	public List<Farmacie> getFarm(Produs p) throws RemoteException {
-		if(p.getHost()!=host)
+		if(!p.getHost().equals(this.host))
 			return null;
 		return this.getFarm(p.getID());
 	}

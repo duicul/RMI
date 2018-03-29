@@ -70,7 +70,7 @@ public class StocReal implements Stocinter {
 
 	@Override
 	public Farmacie getFarm(Stoc s) throws RemoteException {
-		if(this.host!=s.getHost())
+		if(!this.host.equals(s.getHost()))
 			return null;
 		return this.getFarm(s.getID());
 	}
@@ -115,7 +115,7 @@ public class StocReal implements Stocinter {
 
 	@Override
 	public Produs getProdus(Stoc s) throws RemoteException {
-		if(this.host!=s.getHost())
+		if(!this.host.equals(s.getHost()))
 			return null;
 		return this.getProdus(s.getID());
 	}

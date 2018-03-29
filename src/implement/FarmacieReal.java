@@ -25,7 +25,7 @@ public class FarmacieReal implements Farmacieinter {
     
     
     public List<Produs> getProductsFarmacie(Farmacie f) throws RemoteException
-    {if(this.host!=f.getHost())
+    {if(!f.getHost().equals(this.host))
     	return null;
     return this.getProductsFarmacie(f.getID());
     }
@@ -108,7 +108,7 @@ public class FarmacieReal implements Farmacieinter {
 	       return ls;}
 
 	public List<Stoc> getStocFarmacie(Farmacie f) throws RemoteException
-	{if(this.host!=f.getHost())
+	{if(!f.getHost().equals(this.host))
     	return null;
     return this.getStocFarmacie(f.getID());
     }
