@@ -11,7 +11,7 @@ import classes.*;
 import interfaces.*;
 
 public class DBManageReal implements DBManageinter {
-        private String JDBC_DRIVER = "com.mysql.jdbc.Driver",host;  
+    private String JDBC_DRIVER = "com.mysql.jdbc.Driver",host;  
 	private String DB_URL,dbase;
 	private String USER;
 	private String PASS;
@@ -228,7 +228,7 @@ public class DBManageReal implements DBManageinter {
 	  conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
             stmt = (Statement) conn.createStatement();
 		      String sql;
-		      sql = "SELECT * FROM STOC WHERE NUME='"+name+"'";
+		      sql = "SELECT * FROM PRODUS WHERE NUME='"+name+"'";
 		      ResultSet rs = stmt.executeQuery(sql);
 		      
                       if(rs.next())
