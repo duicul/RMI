@@ -29,9 +29,15 @@ public class ProdusReal implements Produsinter{
      this.DB_URL= "jdbc:mysql://"+host+"/"+this.dbase;
     }
 
+    public String getDBase() throws RemoteException
+    {return this.dbase;}
+    
+    public String getHost() throws RemoteException
+    {return this.host;}
+    
 	@Override
 	public List<Stoc> getStoc(Produs p) throws RemoteException {
-		if(!p.getHost().equals(this.host))
+		if(!(this.host.equals(p.getHost())&&this.dbase.equals(p.getDBase())))
 	    	return null;
 		return this.getStoc(p.getID());
 	}
@@ -53,7 +59,7 @@ public class ProdusReal implements Produsinter{
 	                      fid=rs.getInt("FID");
 	                      pret=rs.getInt("PRET");
 	                     cantitate=rs.getInt("CANTITATE");
-	                      ls.add(new Stoc(id,fid,pid,pret,cantitate,host));
+	                      ls.add(new Stoc(id,fid,pid,pret,cantitate,host,dbase));
 	                      }
 			     
 			      rs.close();
@@ -75,22 +81,22 @@ public class ProdusReal implements Produsinter{
 	       return ls;
 	}
 
-	public List<Stoc> getStoc(Produs p, Farmacie f) throws RemoteException {
-		if(!p.getHost().equals(this.host)||!f.getHost().equals(this.host))
+	public Stoc getStoc(Produs p, Farmacie f) throws RemoteException {
+		if(!(this.host.equals(p.getHost())&&this.dbase.equals(p.getDBase()))||!(this.host.equals(f.getHost())&&this.dbase.equals(f.getDBase())))
 			return null;
 		return this.getStoc(p.getID(), f.getID());
 	}
 
 	@Override
-	public List<Stoc> getStoc(int pid, int fid) throws RemoteException {
-	    List<Stoc> ls=new ArrayList<Stoc>();
+	public Stoc getStoc(int pid, int fid) throws RemoteException {
+	   Stoc ls=null;
 	     int id,pret,cantitate;  
 	        try{Class.forName(JDBC_DRIVER);
 		  System.out.println("Connecting to database...");
 		  conn = (Connection) DriverManager.getConnection(DB_URL,USER,PASS);
 	            stmt = (Statement) conn.createStatement();
 			      String sql;
-			      sql = "SELECT S.ID,S.FID,S.PID,S.PRET,S.CANTITATE FROM PRODUS P,STOC S WHERE S.PID="+pid+"S.FID="+fid;
+			      sql = "SELECT S.ID,S.FID,S.PID,S.PRET,S.CANTITATE FROM PRODUS P,STOC S WHERE S.PID="+pid+" AND S.FID="+fid;
 			      ResultSet rs = stmt.executeQuery(sql);
 			      
 	                      while(rs.next())
@@ -98,7 +104,7 @@ public class ProdusReal implements Produsinter{
 	                      fid=rs.getInt("FID");
 	                      pret=rs.getInt("PRET");
 	                     cantitate=rs.getInt("CANTITATE");
-	                      ls.add(new Stoc(id,fid,pid,pret,cantitate,host));
+	                      ls=new Stoc(id,fid,pid,pret,cantitate,host,dbase);
 	                      }
 			     
 			      rs.close();
@@ -141,7 +147,7 @@ public class ProdusReal implements Produsinter{
 		                      nrtel=rs.getString("NRTEL");
 		                      oras=rs.getString("ORAS");
 		                      program=rs.getString("PROGRAM");
-		                      ls.add(new Farmacie(id,nume,adresa,nrtel,oras,program,host));
+		                      ls.add(new Farmacie(id,nume,adresa,nrtel,oras,program,host,dbase));
 		                      }
 				     
 				      rs.close();
@@ -181,7 +187,7 @@ public class ProdusReal implements Produsinter{
 	                      pid=rs.getInt("PID");
 	                      pret=rs.getInt("PRET");
 	                     cantitate=rs.getInt("CANTITATE");
-	                      ls.add(new Stoc(id,fid,pid,pret,cantitate,host));
+	                      ls.add(new Stoc(id,fid,pid,pret,cantitate,host,dbase));
 	                      }
 			     
 			      rs.close();
@@ -204,8 +210,8 @@ public class ProdusReal implements Produsinter{
 	}
 
 	@Override
-	public List<Stoc> getStoc(String p, String f) throws RemoteException {
-	    List<Stoc> ls=new ArrayList<Stoc>();
+	public Stoc getStoc(String p, String f) throws RemoteException {
+	    Stoc ls=null;
 	     int id,pret,pid,fid,cantitate;  
 	        try{Class.forName(JDBC_DRIVER);
 		  System.out.println("Connecting to database...");
@@ -221,7 +227,7 @@ public class ProdusReal implements Produsinter{
 	                      pid=rs.getInt("PID");
 	                      pret=rs.getInt("PRET");
 	                     cantitate=rs.getInt("CANTITATE");
-	                      ls.add(new Stoc(id,fid,pid,pret,cantitate,host));
+	                      ls=new Stoc(id,fid,pid,pret,cantitate,host,dbase);
 	                      }
 			     
 			      rs.close();
@@ -263,7 +269,7 @@ public class ProdusReal implements Produsinter{
 	                      nrtel=rs.getString("NRTEL");
 	                      oras=rs.getString("ORAS");
 	                      program=rs.getString("PROGRAM");
-	                      ls.add(new Farmacie(id,nume,adresa,nrtel,oras,program,host));
+	                      ls.add(new Farmacie(id,nume,adresa,nrtel,oras,program,host,dbase));
 	                      }
 			     
 			      rs.close();
@@ -288,7 +294,7 @@ public class ProdusReal implements Produsinter{
 
 	@Override
 	public List<Farmacie> getFarm(Produs p) throws RemoteException {
-		if(!p.getHost().equals(this.host))
+		if(!(this.host.equals(p.getHost())&&this.dbase.equals(p.getDBase())))
 			return null;
 		return this.getFarm(p.getID());
 	}

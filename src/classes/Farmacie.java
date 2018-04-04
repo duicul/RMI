@@ -5,21 +5,24 @@ import java.rmi.RemoteException;
 public class Farmacie implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
-    private String nume,adresa,nrtel,oras,program,host;
-    public Farmacie(int id,String nume,String adresa,String nrtel,String oras,String program,String host)
+    private String nume,adresa,nrtel,oras,program,host,dbase;
+    public Farmacie(int id,String nume,String adresa,String nrtel,String oras,String program,String host,String dbase)
    {this.id=id;
     this.nume=nume;
     this.adresa=adresa;
     this.nrtel=nrtel;
     this.oras=oras;
     this.program=program;
-    this.host=host;}
+    this.host=host;
+    this.dbase=dbase;}
     public int getID() throws RemoteException
    {return this.id;}
     public String getNume() throws RemoteException
     {return this.nume;}
     public String getHost() throws RemoteException
     {return this.host;}
+    public String getDBase() throws RemoteException
+    {return this.dbase;}
     public String getAdresa() throws RemoteException
     {return this.adresa;}
     public String getNrtel() throws RemoteException

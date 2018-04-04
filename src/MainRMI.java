@@ -15,19 +15,29 @@ public class MainRMI {
         /*if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }*/
-        //String host,dba,user,pass;
+        System.out.println(args.length);
+        String host,dba,user,pass;
+        if(args.length<2)
+        {System.out.println("Usage <host> <dbase> <user> <pass>");
+        return;}
+        /*for(String s:args)
+        	System.out.println(s);*/
+        host=args[0];
+        dba=args[1];
+        user=(args.length<3)?"":args[2];
+        pass=(args.length<4)?"":args[3];
         try {
-            String name1 = "DB";
-            DBManageinter db = new DBManageReal("localhost","Test","root","");
+            String name1 = "DB-"+dba;
+            DBManageinter db = new DBManageReal(host,dba,user,pass);
             DBManageinter db_stub=(DBManageinter) UnicastRemoteObject.exportObject(db, 0);
-            String name2 = "Produs";
-            Produsinter prod = new ProdusReal("localhost","Test","root","");
+            String name2 = "Produs-"+dba;
+            Produsinter prod = new ProdusReal(host,dba,user,pass);
             Produsinter prod_stub =(Produsinter) UnicastRemoteObject.exportObject(prod, 0);
-            String name3 = "Stoc";
-            Stocinter st = new StocReal("localhost","Test","root","");
+            String name3 = "Stoc-"+dba;
+            Stocinter st = new StocReal(host,dba,user,pass);
             Stocinter st_stub =(Stocinter) UnicastRemoteObject.exportObject(st, 0);
-            String name4 = "Farmacie";
-            Farmacieinter fa = new FarmacieReal("localhost","Test","root","");
+            String name4 = "Farmacie-"+dba;
+            Farmacieinter fa = new FarmacieReal(host,dba,user,pass);
             Farmacieinter fa_stub =(Farmacieinter) UnicastRemoteObject.exportObject(fa, 0);
             Registry registry = LocateRegistry.getRegistry();
             registry.rebind(name1, db_stub);

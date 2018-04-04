@@ -27,6 +27,9 @@ public class DBManageReal implements DBManageinter {
    
    public String getHost() throws RemoteException
    {return this.host;}
+   
+   public String getDBase() throws RemoteException
+   {return this.dbase;}
 
    public List<Farmacie> getFarmacii() throws RemoteException
      {List<Farmacie> ls=new ArrayList<Farmacie>();
@@ -47,7 +50,7 @@ public class DBManageReal implements DBManageinter {
                          nrtel = rs.getString("NRTEL");
                          oras = rs.getString("ORAS");
                          program = rs.getString("PROGRAM");
-                         ls.add(new Farmacie(id,nume,adresa,nrtel,oras,program,host));}
+                         ls.add(new Farmacie(id,nume,adresa,nrtel,oras,program,host,dbase));}
 		     
 		      rs.close();
 		      stmt.close();
@@ -86,7 +89,7 @@ public class DBManageReal implements DBManageinter {
                          nrtel = rs.getString("NRTEL");
                          oras = rs.getString("ORAS");
                          program = rs.getString("PROGRAM");
-		     f=new Farmacie(id,nume,adresa,nrtel,oras,program,host);}
+		     f=new Farmacie(id,nume,adresa,nrtel,oras,program,host,dbase);}
                       
 		      rs.close();
 		      stmt.close();
@@ -124,7 +127,7 @@ public class DBManageReal implements DBManageinter {
                          nrtel = rs.getString("NRTEL");
                          oras = rs.getString("ORAS");
                          program = rs.getString("PROGRAM");
-		      f=new Farmacie(id,nume,adresa,nrtel,oras,program,host);}
+		      f=new Farmacie(id,nume,adresa,nrtel,oras,program,host,dbase);}
 		      rs.close();
 		      stmt.close();
 		      conn.close();
@@ -160,7 +163,7 @@ public class DBManageReal implements DBManageinter {
                        pid  = rs.getInt("PID");
                        pret  = rs.getInt("PRET");
                        cantitate  = rs.getInt("CANTITATE");
-                       s=new classes.Stoc(id,fid,pid,pret,cantitate,this.host);}
+                       s=new classes.Stoc(id,fid,pid,pret,cantitate,this.host,dbase);}
 		     
 		      rs.close();
 		      stmt.close();
@@ -196,7 +199,7 @@ public class DBManageReal implements DBManageinter {
                       {id  = rs.getInt("ID");
                        nume  = rs.getString("NUME");
                        clasa  = rs.getString("CLASA");
-                       p=new classes.Produs(id,nume,clasa,host);}
+                       p=new classes.Produs(id,nume,clasa,host,dbase);}
 		     
 		      rs.close();
 		      stmt.close();
@@ -232,7 +235,7 @@ public class DBManageReal implements DBManageinter {
                       {id  = rs.getInt("ID");
                        nume  = rs.getString("NUME");
                        clasa  = rs.getString("CLASA");
-                       p=new classes.Produs(id,nume,clasa,host);}
+                       p=new classes.Produs(id,nume,clasa,host,dbase);}
 		     
 		      rs.close();
 		      stmt.close();
@@ -266,7 +269,7 @@ public class DBManageReal implements DBManageinter {
                       if(rs.next())
                       {id  = rs.getInt("ID");
                        nume  = rs.getString("NUME");
-                       p=new classes.Produs(id,nume,clasa,host);}
+                       p=new classes.Produs(id,nume,clasa,host,dbase);}
 		     
 		      rs.close();
 		      stmt.close();

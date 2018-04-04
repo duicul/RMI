@@ -23,12 +23,20 @@ public class FarmacieReal implements Farmacieinter {
      this.DB_URL= "jdbc:mysql://"+host+"/"+this.dbase;
     }
     
+    public String getDBase() throws RemoteException
+    {return this.dbase;}
+    
+    public String getHost() throws RemoteException
+    {return this.host;}
+    
     
     public List<Produs> getProductsFarmacie(Farmacie f) throws RemoteException
-    {if(!f.getHost().equals(this.host))
-    	return null;
-    return this.getProductsFarmacie(f.getID());
-    }
+    {System.out.println(f.getHost()+" "+f.getDBase());
+    System.out.println(this.host+" "+this.dbase);
+    	if(!(this.host.equals(f.getHost())&&this.dbase.equals(f.getDBase())))
+    	{System.out.println("getProductsFarmacie null");
+    	return null;}
+    return this.getProductsFarmacie(f.getID());}
      
 	@Override
 	public List<Produs> getProductsFarmacie(int fid) throws RemoteException { 
@@ -47,7 +55,7 @@ public class FarmacieReal implements Farmacieinter {
                       {id  = rs.getInt("ID");
                        nume  = rs.getString("NUME");
                        clasa  = rs.getString("CLASA");
-                      ls.add(new Produs(id,nume,clasa,this.host));
+                      ls.add(new Produs(id,nume,clasa,this.host,dbase));
                       }
 		     
 		      rs.close();
@@ -86,7 +94,7 @@ public class FarmacieReal implements Farmacieinter {
 	                      {id  = rs.getInt("ID");
 	                       nume  = rs.getString("NUME");
 	                       clasa  = rs.getString("CLASA");
-	                      ls.add(new Produs(id,nume,clasa,this.host));
+	                      ls.add(new Produs(id,nume,clasa,this.host,dbase));
 	                      }
 			     
 			      rs.close();
@@ -108,7 +116,7 @@ public class FarmacieReal implements Farmacieinter {
 	       return ls;}
 
 	public List<Stoc> getStocFarmacie(Farmacie f) throws RemoteException
-	{if(!f.getHost().equals(this.host))
+	{if(!(this.host.equals(f.getHost())&&this.dbase.equals(f.getDBase())))
     	return null;
     return this.getStocFarmacie(f.getID());
     }
@@ -132,7 +140,7 @@ public class FarmacieReal implements Farmacieinter {
 	                  pid  = rs.getInt("PID");
 	                  pret  = rs.getInt("PRET");
 	                  cantitate  = rs.getInt("CANTITATE");
-	                  ls.add(new Stoc(id,fid,pid,pret,cantitate,this.host));}
+	                  ls.add(new Stoc(id,fid,pid,pret,cantitate,this.host,dbase));}
 		     
 		      rs.close();
 		      stmt.close();
@@ -170,7 +178,7 @@ public class FarmacieReal implements Farmacieinter {
 	                  pid  = rs.getInt("PID");
 	                  pret  = rs.getInt("PRET");
 	                  cantitate  = rs.getInt("CANTITATE");
-	                  ls.add(new Stoc(id,fid,pid,pret,cantitate,this.host));}
+	                  ls.add(new Stoc(id,fid,pid,pret,cantitate,this.host,dbase));}
 		     
 		      rs.close();
 		      stmt.close();

@@ -26,6 +26,13 @@ public class StocReal implements Stocinter {
      this.PASS=(PASS==null)?"":PASS;
      this.DB_URL= "jdbc:mysql://"+host+"/"+this.dbase;
     }
+    
+    public String getDBase() throws RemoteException
+    {return this.dbase;}
+    
+    public String getHost() throws RemoteException
+    {return this.host;}
+    
 	@Override
 	public Farmacie getFarm(int sid) throws RemoteException {
 	    Farmacie f=null;
@@ -46,7 +53,7 @@ public class StocReal implements Stocinter {
 	                      nrtel=rs.getString("NRTEL");
 	                      oras=rs.getString("ORAS");
 	                      program=rs.getString("PROGRAM");
-	                      f=new Farmacie(id,nume,adresa,nrtel,oras,program,host);
+	                      f=new Farmacie(id,nume,adresa,nrtel,oras,program,host,dbase);
 	                      }
 			     
 			      rs.close();
@@ -70,7 +77,7 @@ public class StocReal implements Stocinter {
 
 	@Override
 	public Farmacie getFarm(Stoc s) throws RemoteException {
-		if(!this.host.equals(s.getHost()))
+		if(!(this.host.equals(s.getHost())&&this.dbase.equals(s.getDBase())))
 			return null;
 		return this.getFarm(s.getID());
 	}
@@ -92,7 +99,7 @@ public class StocReal implements Stocinter {
 	                      {id  = rs.getInt("ID");
 	                       nume  = rs.getString("NUME");
 	                       clasa  = rs.getString("CLASA");
-	                      p=new Produs(id,nume,clasa,this.host);
+	                      p=new Produs(id,nume,clasa,this.host,dbase);
 	                      }
 			     
 			      rs.close();
@@ -115,7 +122,7 @@ public class StocReal implements Stocinter {
 
 	@Override
 	public Produs getProdus(Stoc s) throws RemoteException {
-		if(!this.host.equals(s.getHost()))
+		if(!(this.host.equals(s.getHost())&&this.dbase.equals(s.getDBase())))
 			return null;
 		return this.getProdus(s.getID());
 	}
